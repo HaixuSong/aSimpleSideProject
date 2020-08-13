@@ -1,0 +1,9 @@
+# IDE
+.vscode
+
+# dev-dependencies
+/node_modules
+
+# bulid
+/dist
+
