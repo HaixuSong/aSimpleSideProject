@@ -1,9 +1,7 @@
-# IDE
-.vscode
-
-
-
 # Front-end gitignore start
+# IDE
+/front-end/.vscode
+
 # dependencies
 /front-end/node_modules
 /front-end/.pnp
