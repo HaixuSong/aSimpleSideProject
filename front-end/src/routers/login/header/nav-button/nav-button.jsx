@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './nav-button.scss'
-import { loginMenu } from '../../../../config/login-menu'
 
 export default class NavButton extends Component {
     state = {
@@ -25,7 +24,7 @@ export default class NavButton extends Component {
                         return (
                             <ul id="hidden-nav-list">
                                 {
-                                    loginMenu.map((item) => {
+                                    this.props.menu.map((item) => {
                                         return <li key={item.name}><a href={item.link}>{item.name}</a><hr /></li>
                                     })
                                 }
@@ -37,7 +36,7 @@ export default class NavButton extends Component {
                 })(this.state.showList)}
                 <ul id="nav-list">
                     {
-                        loginMenu.map((item) => {
+                        this.props.menu.map((item) => {
                             return <li key={item.name}><a href={item.link}>{item.name}</a></li>
                         })
                     }

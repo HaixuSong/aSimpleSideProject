@@ -10,7 +10,7 @@ export default class Header extends Component {
         return (
             <div id='header'>
                 <Logo />
-                <NavButton />
+                <NavButton menu={this.props.menu} />
             </div>
         )
     }

@@ -51,3 +51,7 @@ td, th {
 td:not([align]), th:not([align]) {
     text-align: left;
 }
+
+#root, html, body {
+    height: 100%;
+}

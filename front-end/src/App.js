@@ -10,7 +10,7 @@ import MyInfo from './routers/my-info/my-info'
 
 function App() {
   return (
-    <div>
+    <div id="app">
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/map" component={Map} />

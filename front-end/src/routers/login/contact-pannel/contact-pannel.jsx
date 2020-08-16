@@ -9,9 +9,9 @@ export default class AboutPannel extends Component {
             <div id="contact-pannel">
                 <h3>{joinUsTitle}</h3>
                 {
-                    joinUsContent.map((item) => {
+                    joinUsContent.map((item, index) => {
                         return (
-                            <p>{item}</p>
+                            <p key={index}>{item}</p>
                         )
                     })
                 }

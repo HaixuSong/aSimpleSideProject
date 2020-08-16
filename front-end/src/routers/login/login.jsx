@@ -4,13 +4,17 @@ import Header from './header/header'
 import LoginPannel from './login-pannal/login-pannel'
 import AboutPannel from './about-pannel/about-pannel'
 import ContactPannel from './contact-pannel/contact-pannel'
+import { loginMenu } from '../../config/login-menu'
 
 
 class Login extends Component {
+    componentDidMount() {
+        console.log('clear local storage.')
+    }
     render() {
         return (
             <div>
-                <Header />
+                <Header menu={loginMenu} />
                 <LoginPannel />
                 <AboutPannel />
                 <ContactPannel />
