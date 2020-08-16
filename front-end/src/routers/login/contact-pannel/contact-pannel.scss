@@ -1,0 +1,51 @@
+#contact-pannel {
+    background-color: rgb(221,221,221);
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    h3{
+        font-size: 35px;
+        padding:15px;
+        text-shadow: rgb(163, 38, 56) 1px 0 10px;
+    }
+    p{
+        font-size: 15px;
+        padding:5px;
+    }
+    div {
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        padding: 30px 0;
+        dl{
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            
+            dt{
+                font-size: 25px;
+                color: rgb(72,75,80);
+                padding:10px;
+            }
+            dd{
+                padding:10px;
+            }
+            dd a{
+                font-size: 13px;
+                color: rgb(122,125,130);
+            }
+        }
+    }
+}
+@media (max-width: 980px) {
+    #contact-pannel div{
+        width: 100%;
+        dl{
+            dt{
+                font-size: 15px;
+            }
+            dd a{
+                font-size: 10px;
+            }
+        }
+    }
+}
