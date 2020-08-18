@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './contact-pannel.scss'
-import contactConfig from '../../../config/contact-config'
-import { joinUsTitle, joinUsContent } from '../../../config/string-en'
+import contactConfig from '../../config/contact-config'
+import { joinUsTitle, joinUsContent } from '../../config/string-en'
 
 export default class AboutPannel extends Component {
     render() {

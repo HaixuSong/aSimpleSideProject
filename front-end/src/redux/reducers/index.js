@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import buttonReducer from './button'
+import buttonReducer from './filter-button'
 
 export default combineReducers({
-  button: buttonReducer
+  filter: buttonReducer
 })

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './login.scss'
-import Header from './header/header'
+import Header from '../../components/header/header'
 import LoginPannel from './login-pannal/login-pannel'
 import AboutPannel from './about-pannel/about-pannel'
-import ContactPannel from './contact-pannel/contact-pannel'
+import ContactPannel from '../../components/contact-pannel/contact-pannel'
 import { loginMenu } from '../../config/login-menu'
 
 

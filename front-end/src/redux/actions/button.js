@@ -1,6 +1,6 @@
-import { CHANGEBUTTONSTATE } from '../../config/const'
+import { CHANGEFILTERSTATE } from '../../config/const'
 
 
-export const setButtonState = buttonID => {
-  return { type: CHANGEBUTTONSTATE, data: buttonID }
+export const setFilterState = data => {
+  return { type: CHANGEFILTERSTATE, data: data }
 }

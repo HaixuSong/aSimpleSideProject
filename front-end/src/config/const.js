@@ -1,2 +1,2 @@
 export const baseURL = 'localhost:3000'
-export const CHANGEBUTTONSTATE = "changebuttonstate"
+export const CHANGEFILTERSTATE = "changefilterstate"
