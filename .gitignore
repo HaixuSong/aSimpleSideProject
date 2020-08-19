@@ -24,3 +24,10 @@
 /front-end/yarn-debug.log*
 /front-end/yarn-error.log*
 # Front-end gitignore end
+
+# Back-end gitignore start
+# dependencies
+/back-end/node_modules
+#ide
+/back-end/.vscode
+# Back-end gitignore end
