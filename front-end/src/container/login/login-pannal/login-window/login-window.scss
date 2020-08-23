@@ -16,6 +16,7 @@
         margin: 15px 0;
     }
     div{
+        position: relative;
         width:100%;
         display:flex;
         justify-content: center;
@@ -36,10 +37,37 @@
         height: 50px;
         margin: 15px 0;
         border: 1px solid #DDDDDD;
-      }
-       
-      input[type=text]:focus{
-        box-shadow: 0 0 5px rgba(163, 38, 56, 1);
-        border: 1px solid rgba(163, 38, 56, 1);
-      }
+    }
+    
+    input[type=text]:focus{
+    box-shadow: 0 0 5px rgba(163, 38, 56, 1);
+    border: 1px solid rgba(163, 38, 56, 1);
+    }
+    // input.showResultGood{
+    //     width: 50px;
+    // }
+    .showResultGood::after{
+        position: absolute;
+        content: 'Email is sent';
+        color: green;
+        font-size: 15px;
+        top: 70px;
+        left: 60px;
+    }
+    .showResultBad::after{
+        position: absolute;
+        content: 'Error. Please try again later';
+        color: red;
+        font-size: 15px;
+        top: 70px;
+        left: 60px;
+    }
+    .showResultValid::after{
+        position: absolute;
+        content: 'Please Use Your Stevens Email';
+        color: red;
+        font-size: 15px;
+        top: 70px;
+        left: 60px;
+    }
 }

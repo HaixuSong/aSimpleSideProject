@@ -1,0 +1,29 @@
+#img-upload{
+  box-sizing: border-box;
+  #upload-new{
+    transition: all 0.5s ease;
+    display: inline-block;
+    border: 2px dotted transparent;
+    padding:0;
+
+    label {
+      color: rgb(163,39,57);
+      span{
+        font-size: 30px;
+      }
+      display: block;
+      width: 100px;
+      height: 100px;
+      background-color: rgb(221,221,221);
+      font-weight: 800;
+      font-size: 15px;
+      text-align: center;
+      line-height: 30px;
+      padding: 20px 0;
+    }
+  }
+  #upload-new:hover{
+    border: 2px dotted rgb(163,39,57);
+  }
+
+}
