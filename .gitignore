@@ -30,4 +30,9 @@
 /back-end/node_modules
 #ide
 /back-end/.vscode
+#security
+/back-end/secret.js
+/back-end/rng.js
+#wrong-file wrong-place
+/back-end/code2string.js
 # Back-end gitignore end
