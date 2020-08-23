@@ -1,47 +1,44 @@
+const db = require('./db')
+// let session = require('express-session');
+// const MongoStore = require('connect-mongo')(session);
+const businessRouter = require('./router/axiosReq')
+const bodyParser = require('body-parser');
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const PORT = 4000
 
 //Not showing that this service is based on Express
 //in respond head
 app.disable('x-powered-by')
+var cors = require('cors')
 
-//2.配置路由 ------ 对请求的url进行分类，服务器根据分类决定交给谁去处理。
-/*
-  (1).在Node.js课程中，我们所有说的“路由”,默认都是指【后端路由】
-  (2).路由可以理解为：一组一组key-value的组合，key:请求方式 + URI路径 ， value:回调函数
-  (3).根据路由定义的顺序(写代码的顺序),依次定义好路由，随后放入一个类似数组的结构，当有请求时，依次取出匹配。若匹配成功，不再继续匹配了。
-  (4).该URL:http://locahost:3000/meishi 中meishi，叫什么？ 1.URI名字 2.虚拟路径名字
-*/
-//根路由
-app.get('/', function (request, response) {
-  /*
-  * 问题：得是什么样的请求，能交给这个回调函数处理？
-  *       1.请求方式必须为GET
-  *       2.请求的URI必须为:“/”
-  * */
-  console.log(request.query)
-  console.log(request.url)
-  response.send('ok')
-})
+app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
+//expose public files which are in ./public
+app.use('/public', express.static('public'))
+app.use(session({
+  secret: 'abaaba', //a string used encrypt sid
+  saveUninitialized: false, //If true, store the session before initializing
+  resave: true, //Store session each time while request
+  store: new MongoStore({
+    url: 'mongodb://localhost:27017/cookies_container',
+    touchAfter: 1 * 24 * 60 * 60 * 1000 //Store each 24 hours
+  }),
+  cookie: {
+    secure: false, //If true, this cookie may only dilivered while https
+    httpOnly: true, //Won't allow this cookie be manipulated by js scripts
+    maxAge: 90 * 24 * 60 * 60 * 1000 // Cookie expires after 180 days(about a semester)
+  },
+}))
 
-//一级路由
-app.get('/meishi', function (request, response) {
-  /*
-  * 问题：得是什么样的请求，能交给这个回调函数处理？
-  *       1.请求方式必须为GET
-  *       2.请求的URI必须为:“/meishi”
-  * */
-  response.send('<h1>我是美食页面</h1>')
-})
 
-//二级路由
-app.get('/meishi/c17', function (request, response) {
-  response.send('我是美食-火锅页面')
-})
-
-app.post('/', function (request, response) {
-  response.send('你发的是post请求')
+db.then(() => {
+  app.use(businessRouter)
+}).catch((err) => {
+  console.log('Failed to connect mongoDB \n', err)
 })
 
 app.listen(PORT, (err) => {
