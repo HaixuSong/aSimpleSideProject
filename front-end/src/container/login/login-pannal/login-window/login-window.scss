@@ -70,4 +70,12 @@
         top: 70px;
         left: 60px;
     }
+    .vcodeError::after{
+        position: absolute;
+        content: 'Your Code is Wrong or Outdated. Please Try Again Later.';
+        color: red;
+        font-size: 15px;
+        top: 70px;
+        left: 60px;
+    }
 }

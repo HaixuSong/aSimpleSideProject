@@ -12,4 +12,3 @@
 
 **Solution**: Not having a good one yet. Maybe: All other component in map-page adds a clicking-event which changes the redux state. This may work but not good enough. Maybe: I heard that there's multiple-dom-focusing exists. If it really does, there's hope.
 
-### 

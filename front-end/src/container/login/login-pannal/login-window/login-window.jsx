@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import './login-window.scss'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { setLoginStatus } from '../../../../redux/actions/button'
 
-export default class LoginWindow extends Component {
+class LoginWindow extends Component {
     state = {
         inputEmailValue: '',
         showReminder: false,
         isEmailSent: false,
         verifyButtonAble: true,
-        timeRemaining: 60
+        timeRemaining: 60,
+        vcodeError: false
     }
 
     refVerifyInput = React.createRef()
@@ -35,8 +38,6 @@ export default class LoginWindow extends Component {
         axios.post('/login/send-verification', data)
             .then(value => {
                 //which means the response is back
-                console.log(value.data)
-                console.log(this.refVerifyInput.current)
                 if (value.data.sent) {
                     //which means the email is sent from the server
                     this.setState({
@@ -79,6 +80,27 @@ export default class LoginWindow extends Component {
 
     }
 
+    loginHandler = () => {
+        let data = { vcode: this.refCodeInput.current.value }
+        const vcodeRe = /[0-9a-f]{6}/
+        if (!vcodeRe.test(data.vcode)) {
+            this.setState({ vcodeError: true })
+            return
+        }
+        axios.post('/login/login', data)
+            .then(value => {
+                if (value.data.login) {
+                    this.props.setLoginStatus(true)
+                } else {
+                    this.setState({ vcodeError: true })
+                }
+            })
+            .catch(err => {
+                this.setState({ vcodeError: true })
+            })
+
+    }
+
     render() {
         return (
             <div id='login-window' >
@@ -91,11 +113,18 @@ export default class LoginWindow extends Component {
                     </datalist>
                     <button onClick={this.sendVerify} disabled={!this.state.verifyButtonAble}>{this.state.verifyButtonAble ? "Send Certificate" : `Try Again After ${this.state.timeRemaining}s`}</button>
                 </div>
-                <div>
+                <div className={this.state.vcodeError ? "vcodeError" : ""}>
                     <input type="text" placeholder="Certification Code" maxLength="6" ref={this.refCodeInput} />
-                    <button>Login</button>
+                    <button onClick={this.loginHandler}>Login</button>
                 </div>
             </div>
         )
     }
 }
+
+LoginWindow = connect(
+    state => ({ isLogin: state.login }),
+    { setLoginStatus }
+)(LoginWindow)
+
+export default LoginWindow

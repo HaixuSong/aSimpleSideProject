@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './nav-button.scss'
 
 export default class NavButton extends Component {
@@ -6,15 +7,14 @@ export default class NavButton extends Component {
         showList: false
     }
 
-    showNavList = () => {
+    toggleNavList = () => {
         let newState = !this.state.showList
         this.setState({ showList: newState })
     }
-
     render() {
         return (
             <div id="nav">
-                <button id="nav-button" onClick={this.showNavList}>
+                <button id="nav-button" onClick={this.toggleNavList}>
                     <div></div>
                     <div></div>
                     <div></div>
@@ -25,7 +25,7 @@ export default class NavButton extends Component {
                             <ul id="hidden-nav-list">
                                 {
                                     this.props.menu.map((item) => {
-                                        return <li key={item.name}><a href={item.link}>{item.name}</a><hr /></li>
+                                        return <li key={item.name}><Link to={item.link}>{item.name}</Link><hr /></li>
                                     })
                                 }
                             </ul>
