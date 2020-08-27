@@ -37,6 +37,7 @@ app.use(session({
 
 
 db.then(() => {
+  //Here needs a UI router to respond SPA
   app.use(businessRouter)
 }).catch((err) => {
   console.log('Failed to connect mongoDB \n', err)
