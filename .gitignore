@@ -26,6 +26,8 @@
 # Front-end gitignore end
 
 # Back-end gitignore start
+#imgs
+/backend/public/img
 # dependencies
 /back-end/node_modules
 #ide
