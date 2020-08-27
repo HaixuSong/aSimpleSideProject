@@ -37,7 +37,7 @@ export default class NavButton extends Component {
                 <ul id="nav-list">
                     {
                         this.props.menu.map((item) => {
-                            return <li key={item.name}><a href={item.link}>{item.name}</a></li>
+                            return <li key={item.name}><Link to={item.link}>{item.name}</Link></li>
                         })
                     }
                 </ul>

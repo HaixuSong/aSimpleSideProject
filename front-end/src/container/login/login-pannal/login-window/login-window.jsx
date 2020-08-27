@@ -81,10 +81,24 @@ class LoginWindow extends Component {
     }
 
     loginHandler = () => {
-        let data = { vcode: this.refCodeInput.current.value }
+        this.setState({
+            showReminder: false,
+            vcodeError: false
+        })
+
+        let data = {
+            vcode: this.refCodeInput.current.value,
+            email: this.refVerifyInput.current.value
+        }
         const vcodeRe = /[0-9a-f]{6}/
-        if (!vcodeRe.test(data.vcode)) {
-            this.setState({ vcodeError: true })
+        if (!vcodeRe.test(data.vcode) || !data.email.endsWith('@stevens.edu')) {
+            if (!vcodeRe.test(data.vcode)) { this.setState({ vcodeError: true }) }
+            if (!data.email.endsWith('@stevens.edu')) {
+                this.setState({
+                    showReminder: true,
+                    validEmail: false
+                })
+            }
             return
         }
         axios.post('/login/login', data)
@@ -98,7 +112,6 @@ class LoginWindow extends Component {
             .catch(err => {
                 this.setState({ vcodeError: true })
             })
-
     }
 
     render() {
