@@ -1,13 +1,18 @@
 #img-upload{
   box-sizing: border-box;
+  
   #upload-new{
+    float: left;
     transition: all 0.5s ease;
     display: inline-block;
-    border: 2px dotted transparent;
+    margin-left:20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     padding:0;
 
     label {
       color: rgb(163,39,57);
+      border: 2px dotted transparent;
       span{
         font-size: 30px;
       }
@@ -21,9 +26,63 @@
       line-height: 30px;
       padding: 20px 0;
     }
+    label:hover{
+      border: 2px dotted rgb(163,39,57);
+    }
   }
-  #upload-new:hover{
+  .showImg{
+    float: left;
+    box-sizing: padding-box;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top:10px;
+    height: 100px;
+    width: 100px;
+    position: relative;
+    background-color: rgb(221,221,221);
+    border: 2px dotted transparent;
+    transition: all 0.5s ease;
+    img{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform:translate(-50%, -50%);
+      height: 90%;
+      width: 90%;
+    }
+    .deleteImg{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform:translate(-50%, -50%);
+      height: 90%;
+      width: 90%;
+      opacity: 0;
+      background-color: #000;
+      z-index: 10;
+      transition: all 0.5s ease;
+      button{
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%, -50%);
+        background-color: transparent;
+        border: 0;
+        color: #FFF;
+        font-weight: 900;
+        z-index: 11;
+        margin: 0;
+        outline:none;
+      }
+    }
+    .deleteImg:hover{
+      opacity:0.7
+    }
+  }
+  .showImg:hover{
     border: 2px dotted rgb(163,39,57);
   }
+
 
 }

@@ -6,7 +6,6 @@ export const getNewHouseState = () => {
   request.send(null)
   let data
   if (request.status === 200) {
-    console.log(request.responseText)
     data = JSON.parse(request.responseText)
   }
   return { type: GETNEWHOUSESTATE, data: data }
