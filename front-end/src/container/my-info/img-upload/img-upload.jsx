@@ -10,6 +10,7 @@ class ImgUpload extends Component {
   }
 
   postimg = (e) => {
+    console.log('posting');
     let file = e.target.files[0]
     if (!file) return
     var formdata1 = new FormData()

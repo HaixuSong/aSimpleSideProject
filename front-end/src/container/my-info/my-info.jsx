@@ -3,6 +3,7 @@ import Header from '../../components/header/header'
 import { infoMenu } from '../../config/my-info-menu'
 import './my-info.scss'
 import ImgUpload from './img-upload/img-upload'
+import RoomType from './room-type/room-type'
 
 class MyInfo extends Component {
     render() {
@@ -57,17 +58,13 @@ class MyInfo extends Component {
                         <section>
                             <h5>Room Type</h5>
                             <div className="content">
-                                <select name="roomType" id="roomType">
-                                    <option value="0">Master Bedroom</option>
-                                    <option value="1">Guest Bedroom</option>
-                                    <option value="2">Living Room</option>
-                                </select>
+                                <RoomType />
                             </div>
                         </section>
                         <section>
                             <h5>Price</h5>
                             <div className="content">
-                                <input type="number" name="price" id="price" step="100" />
+                                <input type="number" name="price" id="price" step="100" min="0" max="2000" />
                                 <label htmlFor="price">$/Month</label>
                                 <span className="holdplace">aba</span>
                                 <label htmlFor="payby">Payed Each</label>
@@ -99,6 +96,7 @@ class MyInfo extends Component {
                                 <input type="date" name="todate" id="todate" />
                             </div>
                         </section>
+
                         <button> Upload or Update </button>
                         <button> Delete This House Info </button>
                     </form>
