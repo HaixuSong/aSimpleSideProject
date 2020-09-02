@@ -1,32 +1,31 @@
 import React, { Component } from 'react'
 
 export default class RoomType extends Component {
-  state = {
-    roomType: "0"
-  }
-
-  changeHandler = (e) => {
-    this.setState({
-      roomType: e.target.value
-    })
-  }
-
   render() {
     return (
-      <div id="room-type">
-        <select name="roomType" id="roomType" onChange={this.changeHandler}>
-          <option value="0">Master Bedroom</option>
-          <option value="1">Guest Bedroom</option>
-          <option value="2">Living Room</option>
+      <div className="room-type">
+        <select name={this.props.name} id={this.props.name} onChange={this.props.change}>
+          <option value="" style={{ display: "none" }}>{this.props.default}</option>
+          {this.props.choices.map((item) => {
+            if (item.value === this.props.value) {
+              return (
+                <option value={item.value} key={item.value} selected>{item.choice}</option>
+              )
+            }
+            return (
+              <option value={item.value} key={item.value}>{item.choice}</option>
+            )
+          })}
         </select>
         <span>{(() => {
-          switch (this.state.roomType) {
-            case "0":
+          switch (this.props.value) {
+            case 1:
               return "which means having an individual bathroom"
-            case "1":
-            case "2":
-            default:
+            case 2:
+            case 3:
               return "which means sharing bathroom"
+            default:
+              return "please choose a room type"
           }
         })()
         }</span>

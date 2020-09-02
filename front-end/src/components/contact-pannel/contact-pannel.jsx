@@ -3,7 +3,7 @@ import './contact-pannel.scss'
 import contactConfig from '../../config/contact-config'
 import { joinUsTitle, joinUsContent } from '../../config/string-en'
 
-export default class AboutPannel extends Component {
+export default class ContactPannel extends Component {
     render() {
         return (
             <div id="contact-pannel">

@@ -48,6 +48,10 @@
         input{
           margin: 10px 0;
         }
+        input:invalid{
+          border: 1px solid rgba(163, 38, 56, 0.8);
+          box-shadow: 1px 1px 5px rgba(255, 0, 0, 0.8);
+        }
         input[type=text]{
           width: 300px;
           margin: 10px 0;
