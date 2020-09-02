@@ -8,5 +8,6 @@ export const getNewHouseState = () => {
   if (request.status === 200) {
     data = JSON.parse(request.responseText)
   }
+  console.log(data);
   return { type: GETNEWHOUSESTATE, data: data }
 }

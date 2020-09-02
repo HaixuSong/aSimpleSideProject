@@ -5,9 +5,6 @@ import axios from 'axios'
 import { getNewHouseState } from '../../../redux/actions/getNewHouseState'
 
 class ImgUpload extends Component {
-  componentDidMount = () => {
-    this.props.getNewHouseState()
-  }
 
   postimg = (e) => {
     console.log('posting');
@@ -18,7 +15,7 @@ class ImgUpload extends Component {
     let config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     }
-    axios.post('/my-info/postimage', formdata1, config).then((response) => {
+    axios.post(this.props.addRoute, formdata1, config).then((response) => {
       console.log(response.data)
       if (response.data.uploaded) {
         this.props.getNewHouseState()
@@ -29,7 +26,7 @@ class ImgUpload extends Component {
   deleteImg = (picURL) => {
     return ((e) => {
       e.preventDefault()
-      axios.post('/my-info/deleteimage', { picURL })
+      axios.post(this.props.deleteRoute, { picURL })
         .then(value => {
           console.log(value.data)
           if (value.data.deleted) {
@@ -45,8 +42,8 @@ class ImgUpload extends Component {
 
   render() {
     return (
-      <div id="img-upload">
-        {this.props.houseStatus.pictures.map((item) => {
+      <div className="img-upload">
+        {this.props.imgs.map((item) => {
           return (
             <div key={item} className="showImg">
               <img src={item} alt="Broken Img" />
@@ -57,12 +54,12 @@ class ImgUpload extends Component {
           )
         })}
         {(() => {
-          if (this.props.houseStatus.pictures.length === this.props.maxImg) return
+          if (this.props.imgs.length === this.props.maxImg) return
           else {
             return (
-              <section id="upload-new">
-                <input type="file" accept="image/png, image/jpeg, image/gif, image/jpg" id="upload" style={{ display: "none" }} onChange={this.postimg} />
-                <label htmlFor="upload"><span>+</span> <br /> Upload Image </label>
+              <section className="upload-new">
+                <input type="file" accept="image/png, image/jpeg, image/gif, image/jpg" id={this.props.name} style={{ display: "none" }} onChange={this.postimg} />
+                <label htmlFor={this.props.name}><span>+</span> <br /> Upload Image </label>
               </section>
             )
           }
@@ -74,7 +71,7 @@ class ImgUpload extends Component {
 }
 
 ImgUpload = connect(
-  state => ({ houseStatus: state.houseStatus }),
+  () => ({}),
   { getNewHouseState }
 )(ImgUpload)
 
