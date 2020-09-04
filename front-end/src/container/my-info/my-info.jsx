@@ -12,11 +12,20 @@ import ContactPannel from '../../components/contact-pannel/contact-pannel'
 //config
 import { infoMenu } from '../../config/my-info-menu'
 import { c2s, c2sSorted } from '../../config/c2s'
-import { cityChoices, bedroomNbathroomChoices, roomTypeChoices, paybyChoices } from '../../config/choices'
+import { cityChoices, bedroomNbathroomChoices, roomTypeChoices, paybyChoices, sexPreferChoices } from '../../config/choices'
 //redux dispatch
 import { getNewHouseState } from '../../redux/actions/getNewHouseState'
+//gmap
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
+
+const SITgeocode = {
+    lat: 40.7451,
+    lng: -74.0248
+}
 
 class MyInfo extends Component {
+    refMap = React.createRef()
+
     componentDidMount = () => {
         this.props.getNewHouseState()
     }
@@ -32,7 +41,8 @@ class MyInfo extends Component {
         }
         if (data.value === this.props.houseStatus[data.name]) return
         try {
-            if (data.value.toString() === this.props.houseStatus[data.name]) return
+            if (data.value === this.props.houseStatus[data.name].toString()) return
+            if (data.value === '' && this.props.houseStatus[data.name] === null) return
         } catch (err) {
             console.log("toString validation err: " + err)
         }
@@ -83,6 +93,68 @@ class MyInfo extends Component {
         }, 1000)
     }
 
+    dateMinValid = (value, minDate) => {
+        value = value.split('-')
+        minDate = minDate.split('-')
+        if (value[0] < minDate[0]) return false
+        if (value[0] > minDate[0]) return true
+        if (value[1] < minDate[1]) return false
+        if (value[1] > minDate[1]) return true
+        if (value[2] < minDate[2]) return false
+        return true
+    }
+
+    dateMaxValid = (value, maxDate) => {
+        value = value.split('-')
+        maxDate = maxDate.split('-')
+        if (value[0] > maxDate[0]) return false
+        if (value[0] < maxDate[0]) return true
+        if (value[1] > maxDate[1]) return false
+        if (value[1] < maxDate[1]) return true
+        if (value[2] > maxDate[2]) return false
+        return true
+    }
+
+    dateFromChangeHandler = (e) => {
+        let value = e.currentTarget.value
+        let minDate = "2020-08-20"
+        let maxDate = "2120-08-20"
+        if (this.dateMinValid(value, minDate) && this.dateMaxValid(value, maxDate)) {
+            let data = {
+                name: e.currentTarget.name,
+                value: e.currentTarget.value
+            }
+            Axios.post('/my-info/input-text', data)
+                .then(value => {
+                    if (value.data.updated) this.props.getNewHouseState()
+                    else console.log('Sever-side error' + value)
+                })
+                .catch(err => {
+                    console.log(`Didn't get respond from server, error: ${err}`)
+                })
+        }
+    }
+
+    dateToChangeHandler = (e) => {
+        let value = e.currentTarget.value
+        let minDate = this.props.houseStatus.fromdate || "2020-08-20"
+        let maxDate = "2120-08-20"
+        if (this.dateMinValid(value, minDate) && this.dateMaxValid(value, maxDate)) {
+            let data = {
+                name: e.currentTarget.name,
+                value: e.currentTarget.value
+            }
+            Axios.post('/my-info/input-text', data)
+                .then(value => {
+                    if (value.data.updated) this.props.getNewHouseState()
+                    else console.log('Sever-side error' + value)
+                })
+                .catch(err => {
+                    console.log(`Didn't get respond from server, error: ${err}`)
+                })
+        }
+    }
+
     render() {
         return (
             <div id="my-info">
@@ -104,6 +176,11 @@ class MyInfo extends Component {
                                 <br />
                                 <label htmlFor="address">House Number and Street</label>
                                 <input name="address" id="address" type="text" placeholder="E.g: 59 Ferry Street" onBlur={this.inputBlurHandler} defaultValue={this.props.houseStatus.address || ""} maxLength="200" />
+                                <LoadScript googleMapsApiKey="AIzaSyCElTKRMzXILFNLITlmINlyPS9eMHX4uFY">
+                                    <GoogleMap id="simple-gmap" mapContainerStyle={{ width: "100%", height: "300px" }} zoom={14} center={(this.props.houseStatus.geocode && this.props.houseStatus.geocode.lat) ? this.props.houseStatus.geocode : SITgeocode}>
+                                        {(this.props.houseStatus.geocode && this.props.houseStatus.geocode.lat) && <Marker position={this.props.houseStatus.geocode} />}
+                                    </GoogleMap>
+                                </LoadScript>
                             </div>
                         </section>
                         <section key="House Type">
@@ -143,10 +220,10 @@ class MyInfo extends Component {
                             <h5>Lease Term</h5>
                             <div className="content">
                                 <label htmlFor="fromdate">From:</label>
-                                <input type="date" name="fromdate" id="fromdate" />
+                                <input type="date" name="fromdate" id="fromdate" onChange={this.dateFromChangeHandler} min="2020-08-20" max="2120-08-20" required ref={this.refMap} defaultValue={this.props.houseStatus.todate || ""} />
                                 <span className="holdplace">aba</span>
                                 <label htmlFor="todate">To:</label>
-                                <input type="date" name="todate" id="todate" />
+                                <input type="date" name="todate" id="todate" min="2020-08-20" max="2120-08-20" defaultValue={this.props.houseStatus.todate || "2120-08-20"} onChange={this.dateToChangeHandler} />
                             </div>
                         </section>
                         <section key="Offering">
@@ -187,11 +264,12 @@ class MyInfo extends Component {
                             <h5>Tenant Expected</h5>
                             <div className="content" style={{ backgroundColor: this.props.houseStatus.otherStatement ? this.green : this.yellow }}>
                                 <span className="leftNright"><label htmlFor="sexPrefer">Sex Preference:</label></span>
-                                <select name="sexPrefer" id="sexPrefer">
-                                    <option value="0">No Preference</option>
-                                    <option value="1">Male Only</option>
-                                    <option value="2">Female Only</option>
-                                </select>
+                                {/* <select name="sexPrefer" id="sexPrefer" onChange={this.choiceChangeHandler}>
+                                    <option value="1">No Preference</option>
+                                    <option value="2">Male Only</option>
+                                    <option value="3">Female Only</option>
+                                </select> */}
+                                <Selector choices={sexPreferChoices} value={this.props.houseStatus.sexPrefer || '1'} name="sexPrefer" change={this.choiceChangeHandler} notShowingLabel={true} />
                                 <br />
                                 <span className="leftNright"><label htmlFor="otherStatement">More:</label></span>
                                 <textarea name="otherStatement" id="otherStatement" rows="3" placeholder="Your tenate should ..." onBlur={this.inputBlurHandler} defaultValue={this.props.houseStatus.otherStatement || ""} maxLength="10000"></textarea>
@@ -221,8 +299,7 @@ class MyInfo extends Component {
                                 </div>
                             </div>
                         </section>
-                        <button> Upload or Update </button>
-                        <button> Delete This House Info </button>
+                        <button></button>
                     </form>
                 </div>
                 <ContactPannel />

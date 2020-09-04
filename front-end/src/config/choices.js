@@ -23,3 +23,9 @@ export const paybyChoices = [
   { value: 2, choice: "Month" },
   { value: 3, choice: "Day" },
 ]
+
+export const sexPreferChoices = [
+  { value: 1, choice: "No Preference" },
+  { value: 2, choice: "Male Only" },
+  { value: 3, choice: "Female Only" }
+]

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 export default class Selector extends Component {
   choiceFirstHandler = (signal) => {
+    if (this.props.notShowingLabel) return
     if ((this.props.choiceFirst && signal === "before") || (!this.props.choiceFirst && signal === "after")) return
     return (<label htmlFor={this.props.name} style={{ textTransform: "capitalize" }}>
       {this.props.name}

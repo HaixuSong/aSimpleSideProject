@@ -15,3 +15,11 @@ if (request.status === 200) {
 //like: onload, onreadyStateChange, responseType......
 ```
 
+### 2.CSS Style text-transform: capital doesn't work
+
+**Problem:** I wrote this CSS style in HTML which means having a very high priority to cover other styles. It works well in all other cases. However, this CSS style shows in dev-tools but doesn't work when writing it after a choice selector.
+
+**Solution:** After checking MDN docs, I found that capitalize are designed to make all words in a paragraph to start with a capital letter even if the word starts with characters like `-`, but excepts: this word starts with number. So I changed the choice selector value from number to string. This style finally works.
+
+![001](.\docPic\001.png)![002](.\docPic\002.jpg)
+
