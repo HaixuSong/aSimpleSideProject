@@ -24,6 +24,12 @@ const SITgeocode = {
 }
 
 class MyInfo extends Component {
+
+    state = {
+        switchAble: true,
+        switchError: false
+    }
+
     refMap = React.createRef()
 
     componentDidMount = () => {
@@ -153,6 +159,35 @@ class MyInfo extends Component {
                     console.log(`Didn't get respond from server, error: ${err}`)
                 })
         }
+    }
+
+    switchButtonHandler = (e) => {
+        if (!this.state.switchAble) return;
+        console.log('didn\'t return');
+        this.setState({
+            switchAble: false
+        })
+        let data = {
+            name: "active",
+            value: !this.props.houseStatus.active
+        }
+        Axios.post('/my-info/input-text', data)
+            .then(value => {
+                if (value.data.updated) this.props.getNewHouseState()
+                else console.log('Sever-side error' + value)
+                this.setState({ switchAble: true })
+            })
+            .catch(err => {
+                console.log(`Didn't get respond from server, error: ${err}`)
+                this.setState({ switchAble: true })
+            })
+    }
+
+    isSwitchError = () => {
+        if (!(this.props.houseStatus.pictures.length && this.props.houseStatus.address && this.props.houseStatus.city && this.props.houseStatus.price)) {
+            return true;
+        }
+        return false;
     }
 
     render() {
@@ -299,7 +334,10 @@ class MyInfo extends Component {
                                 </div>
                             </div>
                         </section>
-                        <button></button>
+                        <span className={(this.isSwitchError() ? "switch-name-error" : (this.props.houseStatus.active ? "switch-name-true" : "switch-name-false")) + " switch-name"}>ACTIVATE</span>
+                        <div className="switch-button" onClick={this.switchButtonHandler} style={{ backgroundColor: this.isSwitchError() ? this.red : (this.props.houseStatus.active ? "rgb(84,195,84)" : "rgb(163, 38, 56)") }}>
+                            <div className={this.props.houseStatus.active ? "switch-circle-true" : "switch-circle-false"}></div>
+                        </div>
                     </form>
                 </div>
                 <ContactPannel />
