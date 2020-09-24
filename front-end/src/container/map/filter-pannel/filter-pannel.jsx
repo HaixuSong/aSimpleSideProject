@@ -10,7 +10,7 @@ class FilterPannel extends Component {
       <section id="filter-pannel">
         <FilterButton key="price" config={priceConfig} />
         <FilterButton key="distance" config={distanceConfig} />
-        <FilterButton key="bderooms" config={bedroomsConfig} />
+        <FilterButton key="bedrooms" config={bedroomsConfig} />
         <FilterButton key="roomtype" config={roomTypeConfig} />
       </section>
     )

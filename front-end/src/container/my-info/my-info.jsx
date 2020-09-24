@@ -253,9 +253,9 @@ class MyInfo extends Component {
                         </section>
                         <section key="Lease Term">
                             <h5>Lease Term</h5>
-                            <div className="content">
+                            <div className="content" style={{ backgroundColor: this.props.houseStatus.fromdate ? this.green : this.red }}>
                                 <label htmlFor="fromdate">From:</label>
-                                <input type="date" name="fromdate" id="fromdate" onChange={this.dateFromChangeHandler} min="2020-08-20" max="2120-08-20" required ref={this.refMap} defaultValue={this.props.houseStatus.todate || ""} />
+                                <input type="date" name="fromdate" id="fromdate" onChange={this.dateFromChangeHandler} min="2020-08-20" max="2120-08-20" required ref={this.refMap} defaultValue={this.props.houseStatus.fromdate || ""} />
                                 <span className="holdplace">aba</span>
                                 <label htmlFor="todate">To:</label>
                                 <input type="date" name="todate" id="todate" min="2020-08-20" max="2120-08-20" defaultValue={this.props.houseStatus.todate || "2120-08-20"} onChange={this.dateToChangeHandler} />

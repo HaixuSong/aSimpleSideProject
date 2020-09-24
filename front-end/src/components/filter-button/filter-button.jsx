@@ -15,6 +15,7 @@ class FilterButton extends Component {
     const choice = e.target.textContent
     let data = { choice }
     data.name = this.props.config.name
+    console.log(data);
     this.props.setFilterState(data)
     this.setState({ toggle: false })
   }

@@ -1,3 +1,9 @@
 #map {
   height: 100%;
+  #map-main{
+    display:flex;
+    flex-direction: row-reverse;
+    height:calc(100% - 140px);
+    width: 100%;
+  }
 }
