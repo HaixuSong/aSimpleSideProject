@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { setSortState } from '../../../redux/actions/button'
 import { connect } from 'react-redux'
+import Card from '../../../components/card/card'
 import './card-pannel.scss'
 
 class CardPannel extends Component {
 
   componentDidMount = () => {
     console.log(this.props.sort);
+    console.log('card-pannel');
+    console.log(this.props.allData);
   }
 
   changeSort = (e) => {
@@ -14,11 +17,15 @@ class CardPannel extends Component {
     setSortState(e.currentTarget.value)
   }
 
+  test = () => {
+    console.log(this.props.cardGeo);
+  }
+
   render() {
     return (
       <section id="card-pannel">
         <div id="sorting">
-          <span>10 Results</span>
+          <span>{this.props.allData.length} {this.props.allData.length > 1 ? "Resluts" : "Result"}</span>
           <div className="sort-choice">
             <label htmlFor="sortby">Sorted by</label>
             <select name="sortby" id="sortby" defaultValue={this.props.sort} onChange={this.changeSort}>
@@ -29,25 +36,20 @@ class CardPannel extends Component {
             </select>
           </div>
         </div>
-
         <ul>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
-          <li><div className="card"></div></li>
+          {this.props.allData.map((item) => {
+            return (
+              <li onMouseDown={this.test} key={item.email}><Card key={item.email} info={item} /></li>
+            )
+          })}
         </ul>
+
       </section>
     )
   }
 }
 
 export default connect(
-  (state) => ({ sort: state.sort }),
+  (state) => ({ sort: state.sort, allData: state.allData, cardGeo: state.cardGeo }),
   { setSortState }
 )(CardPannel)

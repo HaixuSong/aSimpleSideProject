@@ -6,13 +6,16 @@ import FilterPannel from './filter-pannel/filter-pannel'
 import CardPannel from './card-pannel/card-pannel'
 import MapPannel from './map-pannel/map-pannel'
 import Axios from 'axios'
+import { connect } from 'react-redux'
+import { setAllData } from '../../redux/actions/setAllData'
 
 class Map extends Component {
 
     componentDidMount = () => {
         Axios.get('/map/getAll')
             .then(value => {
-                console.log(value.data);
+                this.props.setAllData(value.data)
+                console.log(this.props.allData[0])
             })
             .catch(err => {
                 console.log(`Didn't get respond from server, error: ${err}`)
@@ -32,4 +35,8 @@ class Map extends Component {
         )
     }
 }
-export default Map
+
+export default connect(
+    (state) => ({ allData: state.allData }),
+    { setAllData }
+)(Map)
