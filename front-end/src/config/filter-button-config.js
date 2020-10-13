@@ -1,6 +1,6 @@
 export const priceConfig = {
   name: "price",
-  config: ["$0~500", "$500~800", "$800~1000", "$1000~1200", "$1200+"],
+  config: ["$0~500", "$500~800", "$800~1000", "$1000~1200", "$ 1200+"],
 }
 
 export const distanceConfig = {

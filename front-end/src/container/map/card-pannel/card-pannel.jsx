@@ -5,20 +5,8 @@ import Card from '../../../components/card/card'
 import './card-pannel.scss'
 
 class CardPannel extends Component {
-
-  componentDidMount = () => {
-    console.log(this.props.sort);
-    console.log('card-pannel');
-    console.log(this.props.allData);
-  }
-
   changeSort = (e) => {
-    console.log(e.currentTarget.value);
-    setSortState(e.currentTarget.value)
-  }
-
-  test = () => {
-    console.log(this.props.cardGeo);
+    this.props.setSortState(e.currentTarget.value)
   }
 
   render() {
@@ -39,7 +27,7 @@ class CardPannel extends Component {
         <ul>
           {this.props.allData.map((item) => {
             return (
-              <li onMouseDown={this.test} key={item.email}><Card key={item.email} info={item} /></li>
+              <li key={item.email}><Card key={item.email} info={item} /></li>
             )
           })}
         </ul>
@@ -50,6 +38,6 @@ class CardPannel extends Component {
 }
 
 export default connect(
-  (state) => ({ sort: state.sort, allData: state.allData, cardGeo: state.cardGeo }),
+  (state) => ({ sort: state.sort }),
   { setSortState }
 )(CardPannel)

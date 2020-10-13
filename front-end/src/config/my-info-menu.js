@@ -5,6 +5,6 @@ export const infoMenu = [
   },
   {
     name: 'Logout',
-    link: '/login'
+    link: '/logout'
   }
 ]

@@ -15,11 +15,43 @@ class Map extends Component {
         Axios.get('/map/getAll')
             .then(value => {
                 this.props.setAllData(value.data)
-                console.log(this.props.allData[0])
             })
             .catch(err => {
                 console.log(`Didn't get respond from server, error: ${err}`)
             })
+    }
+
+    // filter and sort all the data
+    fns = (lstData) => {
+        let res = [...lstData]
+
+        // sort part
+        if (this.props.sort * 1 === 1) {
+            res.sort((a, b) => {
+                return a.time2Stevens - b.time2Stevens
+            })
+        }
+        else if (this.props.sort * 1 === 4) {
+            res.sort((a, b) => {
+                return b.activeDate - a.activeData
+            })
+        }
+        else if (this.props.sort * 1 === 2) {
+            res.sort((a, b) => {
+                return a.price - b.price
+            })
+        }
+        else if (this.props.sort * 1 === 3) {
+            res.sort((a, b) => {
+                return b.price - a.price
+            })
+        }
+
+        // filter part
+
+
+        console.log(res)
+        return res
     }
 
     render() {
@@ -28,7 +60,7 @@ class Map extends Component {
                 <Header menu={mapMenu} />
                 <FilterPannel />
                 <section id="map-main">
-                    <CardPannel />
+                    <CardPannel allData={this.fns(this.props.allData)} />
                     <MapPannel />
                 </section>
             </div>
@@ -37,6 +69,6 @@ class Map extends Component {
 }
 
 export default connect(
-    (state) => ({ allData: state.allData }),
+    (state) => ({ allData: state.allData, sort: state.sort, filter: state.filter }),
     { setAllData }
 )(Map)

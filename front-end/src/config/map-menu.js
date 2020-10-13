@@ -5,6 +5,6 @@ export const mapMenu = [
   },
   {
     name: 'Logout',
-    link: '/login'
+    link: '/logout'
   }
 ]

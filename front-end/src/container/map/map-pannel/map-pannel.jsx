@@ -9,6 +9,7 @@ const MAPCENTER = {
 }
 
 class MapPannel extends Component {
+
   colorMap = (price) => {
     if (price <= 500) return "rgb(255, 100, 100)"
     if (price <= 800) return "rgb(215, 75, 75)"
@@ -17,11 +18,16 @@ class MapPannel extends Component {
     return "rgb(100, 0, 0)"
   }
 
+  mapClick = (e) => {
+    console.log(this.props.sort, this.props.filter)
+
+  }
+
   render() {
     return (
       <section id="map-pannel">
         <LoadScript googleMapsApiKey="AIzaSyCElTKRMzXILFNLITlmINlyPS9eMHX4uFY">
-          <GoogleMap id="simple-gmap" mapContainerStyle={{ width: "100%", height: "100%" }} zoom={14} center={MAPCENTER}>
+          <GoogleMap onClick={this.mapClick} id="simple-gmap" mapContainerStyle={{ width: "100%", height: "100%" }} zoom={14} center={MAPCENTER}>
             {/* {(this.props.houseStatus.geocode && this.props.houseStatus.geocode.lat) && <Marker position={this.props.houseStatus.geocode} />} */}
             {this.props.allData.map((item) => {
               return (<Marker key={item.email} position={item.geocode} label={{
@@ -42,12 +48,12 @@ class MapPannel extends Component {
             <Marker key={"hoverd"} position={this.props.cardGeo} icon={{
               path:
                 "M150,0 A150,150 0 0,1 -150,0 A150,150 0 0,1 150,0",
-              fillColor: "green",
-              fillOpacity: 1.0,
+              fillColor: "yellow",
+              fillOpacity: 0.3,
               scale: 0.1,
-              strokeColor: "grey",
-              strokeWeight: 1.5
-            }} zIndex={99} />
+              strokeColor: "yellow",
+              strokeWeight: 3.0
+            }} zIndex={99999} />
 
           </GoogleMap>
         </LoadScript>
@@ -57,6 +63,6 @@ class MapPannel extends Component {
 }
 
 export default connect(
-  (state) => ({ allData: state.allData, cardGeo: state.cardGeo }),
+  (state) => ({ allData: state.allData, cardGeo: state.cardGeo, sort: state.sort, filter: state.filter }),
   {}
 )(MapPannel)

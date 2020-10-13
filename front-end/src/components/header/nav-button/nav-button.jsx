@@ -1,3 +1,4 @@
+import Axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './nav-button.scss'
@@ -11,6 +12,17 @@ export default class NavButton extends Component {
         let newState = !this.state.showList
         this.setState({ showList: newState })
     }
+
+    logout = () => {
+        Axios.get('/logout')
+            .then(value => {
+                console.log(value.data)
+            })
+            .catch(err => {
+                console.log('logout server error', err)
+            })
+    }
+
     render() {
         return (
             <div id="nav">
@@ -25,9 +37,13 @@ export default class NavButton extends Component {
                             <ul id="hidden-nav-list">
                                 {
                                     this.props.menu.map((item) => {
+                                        if (item.name === 'Logout') {
+                                            return <li onClick={this.logout} key={item.name}><a href="/">Logout</a></li>
+                                        }
                                         return <li key={item.name}><Link to={item.link}>{item.name}</Link><hr /></li>
                                     })
                                 }
+                                <li><a href="/logout">Logout</a></li>
                             </ul>
                         )
                     } else {
@@ -37,9 +53,13 @@ export default class NavButton extends Component {
                 <ul id="nav-list">
                     {
                         this.props.menu.map((item) => {
+                            if (item.name === 'Logout') {
+                                return <li onClick={this.logout} key={item.name}><a href="/">Logout</a></li>
+                            }
                             return <li key={item.name}><Link to={item.link}>{item.name}</Link></li>
                         })
                     }
+
                 </ul>
             </div>
         )
