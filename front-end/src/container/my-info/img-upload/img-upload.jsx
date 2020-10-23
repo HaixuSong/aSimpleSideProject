@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './img-upload.scss'
 import axios from 'axios'
 import { getNewHouseState } from '../../../redux/actions/getNewHouseState'
+import imageCompression from 'browser-image-compression';
 
 class ImgUpload extends Component {
 
@@ -10,18 +11,41 @@ class ImgUpload extends Component {
     console.log('posting');
     let file = e.target.files[0]
     if (!file) return
-    var formdata1 = new FormData()
-    formdata1.append('img', file, file.name);
-    let config = {
-      headers: { 'Content-Type': 'multipart/form-data' }
+    console.log('originalFile instanceof Blob', file instanceof Blob); // true
+    console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+    var options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 800,
+      useWebWorker: true
     }
-    axios.post(this.props.addRoute, formdata1, config).then((response) => {
-      console.log(response.data)
-      if (response.data.uploaded) {
-        this.props.getNewHouseState()
-      }
-    })
+    imageCompression(file, options)
+      .then(compressedFile => {
+        console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+        var formdata1 = new FormData()
+        formdata1.append('img', compressedFile, compressedFile.name);
+        let config = {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }
+        axios.post(this.props.addRoute, formdata1, config)
+          .then((response) => {
+            console.log(response.data)
+            if (response.data.uploaded) {
+              this.props.getNewHouseState()
+            }
+          })
+          .catch(error => {
+            console.log('Didn\'t post image.' + error);
+          })
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+
+
   }
+
+
 
   deleteImg = (picURL) => {
     return ((e) => {

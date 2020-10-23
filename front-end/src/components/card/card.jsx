@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { cardMoveIn, cardMoveOut } from '../../redux/actions/cardHovering'
 import './card.scss'
+import { Link } from 'react-router-dom'
 
 class Card extends Component {
   getCity = (code) => {
@@ -27,18 +28,20 @@ class Card extends Component {
 
   render() {
     return (
-      <div className="card" onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-        <img src={this.props.info.pictures[0]} alt="show" />
-        <span className="price">
-          {"$" + this.props.info.price} per month
+      <Link to={`/map/${this.props.info.email}`}>
+        <div className="card" onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
+          <img src={this.props.info.pictures[0]} alt="show" />
+          <span className="price">
+            {"$" + this.props.info.price} per month
         </span>
-        <span className="bnb">
-          {this.props.info.bedrooms} bds | {this.props.info.bathrooms} ba
+          <span className="bnb">
+            {this.props.info.bedrooms} bds | {this.props.info.bathrooms} ba
         </span>
-        <div className="address">
-          {this.props.info.address + ", " + this.getCity(this.props.info.city)}
+          <div className="address">
+            {this.props.info.address + ", " + this.getCity(this.props.info.city)}
+          </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }

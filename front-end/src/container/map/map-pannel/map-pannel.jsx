@@ -63,6 +63,6 @@ class MapPannel extends Component {
 }
 
 export default connect(
-  (state) => ({ allData: state.allData, cardGeo: state.cardGeo, sort: state.sort, filter: state.filter }),
+  (state) => ({ cardGeo: state.cardGeo, sort: state.sort, filter: state.filter }),
   {}
 )(MapPannel)

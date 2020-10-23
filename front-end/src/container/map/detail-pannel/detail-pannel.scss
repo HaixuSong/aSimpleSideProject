@@ -1,0 +1,10 @@
+#detail-pannel{
+  background-color: green;
+  width: 750px;
+  flex: 0 0 750px;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  box-shadow: -2px 2px 5px 0 rgba(0,0,0,.4);
+  padding-right: 18px;
+}
