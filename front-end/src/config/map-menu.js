@@ -4,6 +4,10 @@ export const mapMenu = [
     link: '/my-info'
   },
   {
+    name: 'Contact Us',
+    link: '#contact-pannel'
+  },
+  {
     name: 'Logout',
     link: '/logout'
   }

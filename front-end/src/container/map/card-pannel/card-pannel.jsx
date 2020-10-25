@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { setSortState } from '../../../redux/actions/button'
 import { connect } from 'react-redux'
 import Card from '../../../components/card/card'
+import ContactPannel from '../../../components/contact-pannel/contact-pannel'
 import './card-pannel.scss'
 
 class CardPannel extends Component {
@@ -31,7 +32,8 @@ class CardPannel extends Component {
             )
           })}
         </ul>
-
+        <div className="clear"></div>
+        <ContactPannel />
       </section>
     )
   }

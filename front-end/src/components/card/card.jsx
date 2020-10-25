@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom'
 class Card extends Component {
   getCity = (code) => {
     switch (code) {
-      case '1':
+      case 1:
         return 'Jersey City'
-      case '2':
+      case 2:
         return 'Hoboken'
-      case '3':
+      case 3:
         return 'Weehawken'
-      case '4':
+      case 4:
         return 'Union City'
       default:
         return 'Hoboken'
@@ -30,7 +30,8 @@ class Card extends Component {
     return (
       <Link to={`/map/${this.props.info.email}`}>
         <div className="card" onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-          <img src={this.props.info.pictures[0]} alt="show" />
+          <div className='cover-img' style={{ backgroundImage: `url("${this.props.info.pictures[0]}")` }}></div>
+          {/* <img src={this.props.info.pictures[0]} alt="show" /> */}
           <span className="price">
             {"$" + this.props.info.price} per month
         </span>

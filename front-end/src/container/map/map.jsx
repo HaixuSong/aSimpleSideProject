@@ -118,7 +118,7 @@ class Map extends Component {
                     return item.price < 1250 && item.price > 1000;
                 });
                 break;
-            case "$1200+":
+            case "$ 1200+":
                 res = res.filter(item => {
                     return item.price > 1200;
                 });
@@ -161,7 +161,7 @@ class Map extends Component {
                         <Route exact path="/map">
                             <CardPannel allData={this.fns(this.props.allData)} />
                         </Route>
-                        <Route path="map/:email" component={DetailPannel}>
+                        <Route path="/map/:email" component={DetailPannel}>
                         </Route>
                     </Switch>
                     <MapPannel allData={this.fns(this.props.allData)} />

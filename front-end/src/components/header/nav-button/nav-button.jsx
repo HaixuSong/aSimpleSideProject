@@ -40,6 +40,9 @@ export default class NavButton extends Component {
                                         if (item.name === 'Logout') {
                                             return <li onClick={this.logout} key={item.name}><a href="/">Logout</a></li>
                                         }
+                                        if (item.link[0] === '#') {
+                                            return <li key={item.name}><a href={item.link}>{item.name}</a></li>
+                                        }
                                         return <li key={item.name}><Link to={item.link}>{item.name}</Link><hr /></li>
                                     })
                                 }
@@ -55,6 +58,9 @@ export default class NavButton extends Component {
                         this.props.menu.map((item) => {
                             if (item.name === 'Logout') {
                                 return <li onClick={this.logout} key={item.name}><a href="/">Logout</a></li>
+                            }
+                            if (item.link[0] === '#') {
+                                return <li key={item.name}><a href={item.link}>{item.name}</a></li>
                             }
                             return <li key={item.name}><Link to={item.link}>{item.name}</Link></li>
                         })
