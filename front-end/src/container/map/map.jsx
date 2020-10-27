@@ -6,6 +6,7 @@ import FilterPannel from './filter-pannel/filter-pannel'
 import CardPannel from './card-pannel/card-pannel'
 import MapPannel from './map-pannel/map-pannel'
 import DetailPannel from './detail-pannel/detail-pannel'
+import MapDetail from './map-detail/map-detail'
 import Axios from 'axios'
 import { connect } from 'react-redux'
 import { setAllData } from '../../redux/actions/setAllData'
@@ -160,11 +161,13 @@ class Map extends Component {
                     <Switch>
                         <Route exact path="/map">
                             <CardPannel allData={this.fns(this.props.allData)} />
+                            <MapPannel allData={this.fns(this.props.allData)} />
                         </Route>
-                        <Route path="/map/:email" component={DetailPannel}>
+                        <Route path="/map/:email">
+                            <DetailPannel />
+                            <MapDetail />
                         </Route>
                     </Switch>
-                    <MapPannel allData={this.fns(this.props.allData)} />
                 </section>
             </div>
         )

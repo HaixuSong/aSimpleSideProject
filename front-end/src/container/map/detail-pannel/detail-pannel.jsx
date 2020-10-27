@@ -2,7 +2,10 @@ import Axios from 'axios';
 import { withRouter, Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import SlidingPics from '../../../components/sliding-pics/sliding-pics'
-import ContactPannel  from '../../../components/contact-pannel/contact-pannel'
+import ContactPannel from '../../../components/contact-pannel/contact-pannel'
+import { connect } from 'react-redux'
+import { setDetail } from '../../../redux/actions/setDetail'
+import { c2s } from '../../../config/c2s'
 import './detail-pannel.scss'
 
 function getCity (code) {
@@ -60,7 +63,6 @@ function getIncluding(code) {
   //1:water, 2:electric, 3: gas, 4: internet
   for (let i = 0; i < code.length; i++) {
     let item = code[i]
-    console.log(item);
     switch (item) {
       case 1:
         res.push("water")
@@ -77,7 +79,6 @@ function getIncluding(code) {
       default:
         break
     }
-    console.log(res);
   }
   if (!res.length) return ""
   return "Including " + res.join(", ") + '.'
@@ -95,7 +96,7 @@ function getSexPrefer(code) {
 }
 
 function Detail({params}) {
-  if (params === null) return (<h3> Can't find this piece of info in our database.</h3>)
+  if (Object.keys(params).length === 0) return (<h3> Can't find this piece of info in our database.</h3>)
   return (
     <div className='detail-pannel-content'>
       <SlidingPics pics={params.pictures} />
@@ -120,13 +121,14 @@ function Detail({params}) {
         <ul>
           <li>{params.price} $/Month. {getIncluding(params.including)}</li>
           <li>Rent is paid each {getPayby(params.payby)}</li>
+          <li>Begin from {params.fromdate} {(params.todata !== undefined || params.todate !== "2120-08-12") && `to ${params.todate}`}</li>
         </ul>
         <h4>Room</h4>
         <ul>
           <li>{params.bedrooms} bedrooms, {params.bathrooms} bathrooms</li>
           <li>{getRoomType(params.roomType)}</li>
-          <li> This room is offering ...</li>
-          <li> You can use apartment's ...</li>
+          <li> This room is offering {params.offering.map((item)=>{return c2s[item]}).join(', ') }. </li>
+          {/* <li> You can use apartment's ...</li> */}
           <li> {params.roomDescribe} </li>
         </ul>
         <h4>Roommates</h4>
@@ -153,16 +155,11 @@ function Detail({params}) {
 }
 
 class DetailPannel extends Component {
-  state = {
-    detail: null
-  }
-
   componentDidMount() {
     let data = { email: this.props.location.pathname.slice(5) }
-    console.log(data);
     Axios.get('/map/getDetail', {params: data})
       .then(value => {
-        this.setState({detail: value.data[0]})
+        this.props.setDetail(value.data[0])
       })
       .catch(err => {
         console.log(err)
@@ -180,10 +177,13 @@ class DetailPannel extends Component {
           <span>{'Copy Link'}</span>
         </div>
         <div className='detail-header-place'></div>
-        <Detail params={this.state.detail}/>
+        <Detail params={this.props.detail}/>
       </section>
     )
   }
 }
 
-export default withRouter(DetailPannel)
+export default withRouter(connect(
+  (state) => ({detail: state.detail}),
+  {setDetail}
+)(DetailPannel))

@@ -5,6 +5,7 @@ import loginReducer from './login-button'
 import houseStatus from './house-status'
 import allData from './allData'
 import cardGeo from './card-hovering'
+import detail from './detail'
 
 export default combineReducers({
   filter: buttonReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   houseStatus: houseStatus,
   cardGeo: cardGeo,
   sort: sortReducer,
-  allData: allData
+  allData: allData,
+  detail: detail
 })
