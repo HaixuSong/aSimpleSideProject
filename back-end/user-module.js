@@ -7,7 +7,7 @@ let userSchema = new Schema({
     required: true,
     unique: true
   },
-  cellphone: Number,
+  cellphone: String,
   wechat: String, //a url address
   facebook: String, // a url address
 
@@ -16,28 +16,38 @@ let userSchema = new Schema({
     require: true,
     default: false
   },
+  activeDate: Number,
   pictures: [String], //url of all pictures
   sexPrefer: {
     type: Number,
-    default: 0
+    default: 1
   }, //1:MOnly, 2:FOnly, 0:default
-  bedrooms: Number, //0-5
-  bathrooms: Number, //0-5
-  city: Number, //0:Jersey City, 1:Hoboken, 2:Weehawken, 3:Union City
+  bedrooms: Number, //1-4
+  bathrooms: Number, //1-4
+  city: Number, //1:Jersey City, 2:Hoboken, 3:Weehawken, 4:Union City
   address: String,
-  houseType: Number, //0:apartment, 1:house
-  roomType: Number, //0:main, 1:second 2: living
-  price: Number, //Each month
-  fromdate: {
-    type: Date,
-    default: Date.now()
+  geocode: {
+    type: Map,
+    of: Number,
+    require: true
   },
-  todate: Date,
-  payby: Number, //0:year, 1:month, 2: day
-  water: Boolean,
-  electric: Boolean,
-  gas: Boolean,
-  internet: Boolean,
+  time2Stevens: {
+    type: Number,
+    require: true
+  },
+  directionResult: Schema.Types.Mixed,
+  houseType: Number, //0:apartment, 1:house
+  roomType: Number, //1:Private Bathroom, 2:Public Bathroom 3: livingroom
+  price: Number, //Each month
+  including: [Number], //1:water, 2:electric, 3: gas, 4: internet
+  fromdate: String,
+  todate: String,
+  payby: Number, //1:year, 2:month, 3: day
+  // water: Boolean,
+  // electric: Boolean,
+  // gas: Boolean,
+  // internet: Boolean,
+
   offering: [Number],
   roomateDescribe: String,
   roomDescribe: String,

@@ -29,4 +29,11 @@ let s2c = {}
 for (var k in c2s) {
   s2c[c2s[k]] = k
 }
-exports = { c2s, s2c }
+
+cityC2S = {
+  1: "Jersey City",
+  2: "Hoboken",
+  3: "Weehawken",
+  4: "Union City"
+}
+module.exports = { c2s, s2c, cityC2S }

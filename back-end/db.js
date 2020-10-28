@@ -8,7 +8,7 @@ mongoose.set('useCreateIndex', true)
 
 // export a Promise
 module.exports = new Promise((resolve, reject) => {
-  mongoose.connect(`mongodb://localhost:${PORT}/${DB_NAME}`, { useNewUrlParser: true })
+  mongoose.connect(`mongodb://localhost:${PORT}/${DB_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true })
 
   mongoose.connection.once('open', (err) => {
     if (!err) {

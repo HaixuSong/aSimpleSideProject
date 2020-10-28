@@ -14,12 +14,15 @@ module.exports = async function (target) {
     }
   })
   let code = await rngPromise()
-  let sendHtml = `<h1>Certification Code: ${code}</h1>`
+  let sendHtml = `
+  <h1>Certification Code: ${code}</h1>
+  <strong>Note: </strong> If this is not your own operation, be careful not telling anyone this number.
+  `
 
   let mailOptions = {
     from: businessEmail,
     to: target,
-    subject: 'You have a new uploaded file',
+    subject: 'Your Certification Code of SteHouse',
     html: sendHtml
   }
   transporter.sendMail(mailOptions, function (error, info) {
