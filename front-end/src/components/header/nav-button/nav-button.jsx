@@ -41,12 +41,11 @@ export default class NavButton extends Component {
                                             return <li onClick={this.logout} key={item.name}><a href="/">Logout</a></li>
                                         }
                                         if (item.link[0] === '#') {
-                                            return <li key={item.name}><a href={item.link}>{item.name}</a></li>
+                                            return <li key={item.name}><a href={item.link}>{item.name}</a><hr /></li>
                                         }
                                         return <li key={item.name}><Link to={item.link}>{item.name}</Link><hr /></li>
                                     })
                                 }
-                                <li><a href="/logout">Logout</a></li>
                             </ul>
                         )
                     } else {

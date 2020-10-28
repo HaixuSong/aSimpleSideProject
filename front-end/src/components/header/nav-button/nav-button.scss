@@ -7,12 +7,17 @@
         top:57px;
         right:0;
         width:300%;
-        background-color: #fff;
+        background-color: white;
         text-align: center;
+        z-index: 9999;
         li{
             padding: 2px 5px;
+            background-color: white;
+            z-index: 99999;
             a{
                 font-size: 25px;
+                background-color: #fff;
+                z-index: 99999;
             }
         }
     }
@@ -22,6 +27,7 @@
     #nav-button{
         display:none;
         margin: 0 20px;
+        z-index: 99999;
         div{
             border:2px solid rgb(163, 38, 56);
             width:30px;
