@@ -1,0 +1,19 @@
+#login-pannel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 900px;
+    padding-top: 80px;
+    background: url(../../../static/img/login_first_page.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 50px;
+}
+
+@media (max-width: 980px){
+    #login-pannel {
+        height: 500px;
+    }
+}

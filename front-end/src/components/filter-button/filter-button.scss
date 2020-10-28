@@ -1,0 +1,70 @@
+#filter-button{
+  display: inline-block;
+  position: relative;
+  #name {
+    background-color: white;
+    width: 150px;
+    height: 40px;
+    outline:none;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(163, 38, 56);
+    text-align: center;
+    line-height: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    transition-duration: 0.4s;
+  }
+  #name:hover{
+    box-shadow: 5px 5px 20px #888888;
+  }
+  #choices{
+    z-index: 9;
+    position: absolute;
+    top: 55px;
+    left: 15px;
+    border: 2px solid rgb(163, 38, 56);
+    button{
+      display: block;
+      height: 30px;
+      width: 100px;
+      background-color: #fff;
+      border: none;
+      border-bottom: 1px solid rgb(163, 38, 56);
+      border-radius: 0;
+      margin: 0;
+      padding: 0;
+      outline: none;
+      text-align: left;
+      padding:0 5px;
+    }
+    button:hover{
+      background-color: rgb(163, 38, 56);
+      color: white;
+    }
+  }
+  #choices::after{
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0px;
+    border: 10px solid white;
+    border-color: transparent;
+    border-bottom-color: rgb(163, 38, 56);
+  }
+}
+
+#filter-button.buttonFocus {
+  #name {
+    background-color: rgba(163, 38, 56, 1);
+    color: white;
+    box-shadow: 5px 5px 20px #888888; 
+  }
+}
+
+#filter-button:focus{
+  border: 5px solid pink;
+}
