@@ -52,7 +52,7 @@ class MyInfo extends Component {
         } catch (err) {
             console.log("toString validation err: " + err)
         }
-        Axios.post('/my-info/input-text', data)
+        Axios.post('/bknd/my-info/input-text', data)
             .then(value => {
                 if (value.data.updated) this.props.getNewHouseState()
                 else console.log('Sever-side error' + value)
@@ -87,7 +87,7 @@ class MyInfo extends Component {
             checked: e.target.checked
         }
         this.timer = setTimeout(() => {
-            Axios.post('/my-info/checkbox-change', data)
+            Axios.post('/bknd/my-info/checkbox-change', data)
                 .then(value => {
                     console.log(value);
                     if (value.data.updated) this.props.getNewHouseState()
@@ -130,7 +130,7 @@ class MyInfo extends Component {
                 name: e.currentTarget.name,
                 value: e.currentTarget.value
             }
-            Axios.post('/my-info/input-text', data)
+            Axios.post('/bknd/my-info/input-text', data)
                 .then(value => {
                     if (value.data.updated) this.props.getNewHouseState()
                     else console.log('Sever-side error' + value)
@@ -150,7 +150,7 @@ class MyInfo extends Component {
                 name: e.currentTarget.name,
                 value: e.currentTarget.value
             }
-            Axios.post('/my-info/input-text', data)
+            Axios.post('/bknd/my-info/input-text', data)
                 .then(value => {
                     if (value.data.updated) this.props.getNewHouseState()
                     else console.log('Sever-side error' + value)
@@ -171,7 +171,7 @@ class MyInfo extends Component {
             name: "active",
             value: !this.props.houseStatus.active
         }
-        Axios.post('/my-info/input-text', data)
+        Axios.post('/bknd/my-info/input-text', data)
             .then(value => {
                 if (value.data.updated) this.props.getNewHouseState()
                 else console.log('Sever-side error' + value)
@@ -201,7 +201,7 @@ class MyInfo extends Component {
                         <section key="Upload Images">
                             <h5>Upload Images</h5>
                             <div className="content" style={{ backgroundColor: this.props.houseStatus.pictures.length >= 1 ? this.green : this.red }}>
-                                <ImgUpload maxImg={10} name="house" imgs={this.props.houseStatus.pictures} addRoute="/my-info/postimage" deleteRoute="/my-info/deleteimage" />
+                                <ImgUpload maxImg={10} name="house" imgs={this.props.houseStatus.pictures} addRoute="/bknd/my-info/postimage" deleteRoute="/bknd/my-info/deleteimage" />
                             </div>
                         </section>
                         <section key="Location">
@@ -330,7 +330,7 @@ class MyInfo extends Component {
                                     <ImgUpload maxImg={1} imgs={(() => {
                                         if (this.props.houseStatus.wechat) return [this.props.houseStatus.wechat]
                                         return []
-                                    })()} name="wechat" addRoute="/my-info/postWechat" deleteRoute="/my-info/deleteWechat" />
+                                    })()} name="wechat" addRoute="/bknd/my-info/postWechat" deleteRoute="/bknd/my-info/deleteWechat" />
                                 </div>
                             </div>
                         </section>

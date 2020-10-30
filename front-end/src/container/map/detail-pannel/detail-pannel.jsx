@@ -157,7 +157,7 @@ function Detail({params}) {
 class DetailPannel extends Component {
   componentDidMount() {
     let data = { email: this.props.location.pathname.slice(5) }
-    Axios.get('/map/getDetail', {params: data})
+    Axios.get('/bknd/map/getDetail', {params: data})
       .then(value => {
         this.props.setDetail(value.data[0])
       })

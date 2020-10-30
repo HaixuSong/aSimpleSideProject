@@ -35,7 +35,7 @@ class LoginWindow extends Component {
             })
             return
         }
-        axios.post('/login/send-verification', data)
+        axios.post('/bknd/login/send-verification', data)
             .then(value => {
                 //which means the response is back
                 if (value.data.sent) {
@@ -101,7 +101,7 @@ class LoginWindow extends Component {
             }
             return
         }
-        axios.post('/login/login', data)
+        axios.post('/bknd/login/login', data)
             .then(value => {
                 if (value.data.login) {
                     this.props.setLoginStatus(true)

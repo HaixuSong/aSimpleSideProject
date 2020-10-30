@@ -13,7 +13,7 @@ import { setLoginStatus } from './redux/actions/button'
 class App extends Component {
   componentWillMount = async () => {
     var xhr = new XMLHttpRequest()
-    xhr.open('GET', '/auto-login', false)
+    xhr.open('GET', '/bknd/auto-login', false)
     xhr.send(null)
     if (xhr.readyState === 4 && xhr.status === 200) {
       let value = JSON.parse(xhr.response)

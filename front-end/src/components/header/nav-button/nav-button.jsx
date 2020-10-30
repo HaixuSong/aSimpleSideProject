@@ -14,7 +14,7 @@ export default class NavButton extends Component {
     }
 
     logout = () => {
-        Axios.get('/logout')
+        Axios.get('/bknd/logout')
             .then(value => {
                 console.log(value.data)
             })

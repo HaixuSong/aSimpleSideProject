@@ -21,7 +21,7 @@ Array.prototype.remove = function (val) {
 }
 
 //auto-login
-router.get('/auto-login', (req, res) => {
+router.get('/bknd/auto-login', (req, res) => {
   console.log('Auto-login sid: ' + req.session.id)
   if (Date.now() - req.session.lastLogin < 30 * 24 * 60 * 60 * 1000) {
     res.send({ autoLogin: true })
@@ -31,7 +31,7 @@ router.get('/auto-login', (req, res) => {
 })
 
 //login-panel send verification code to email
-router.post('/login/send-verification', async (req, res) => {
+router.post('/bknd/login/send-verification', async (req, res) => {
   let code = await sendEmail(req.body.email)
   req.session.email = req.body.email
   req.session.vcode = code
@@ -41,7 +41,7 @@ router.post('/login/send-verification', async (req, res) => {
 })
 
 //login-page login button
-router.post('/login/login', async (req, res) => {
+router.post('/bknd/login/login', async (req, res) => {
   console.log('request to login: sid:' + req.session.id + ' vcode:' + req.session.vcode + ' body:' + req.body.vcode)
   let time = Date.now()
   if (time - req.session.vcodeCreateTime < 60 * 1000 && req.session.email === req.body.email && req.session.vcode === req.body.vcode) {
@@ -64,7 +64,7 @@ router.post('/login/login', async (req, res) => {
 })
 
 //post image from my-info and store in /public/img
-router.post('/my-info/postimage', async (req, res) => {
+router.post('/bknd/my-info/postimage', async (req, res) => {
   var form = new multiparty.Form({
     uploadDir: path.resolve(__dirname, '../public/img')
   })
@@ -97,7 +97,7 @@ router.post('/my-info/postimage', async (req, res) => {
 })
 
 //Get house status used for my-info page
-router.get('/my-info/get-house-status', async (req, res) => {
+router.get('/bknd/my-info/get-house-status', async (req, res) => {
   let email = req.session.email
   try {
     let findResult = await userModel.findOne({ email })
@@ -110,7 +110,7 @@ router.get('/my-info/get-house-status', async (req, res) => {
 })
 
 //Delete house img from my-info page
-router.post('/my-info/deleteimage', async (req, res) => {
+router.post('/bknd/my-info/deleteimage', async (req, res) => {
   let email = req.session.email
   if (!email) {
     console.log("Strange request with no cookies");
@@ -137,7 +137,7 @@ router.post('/my-info/deleteimage', async (req, res) => {
 })
 
 //posting wechat QR Code
-router.post('/my-info/postWechat', async (req, res) => {
+router.post('/bknd/my-info/postWechat', async (req, res) => {
   var form = new multiparty.Form({
     uploadDir: path.resolve(__dirname, '../public/img')
   })
@@ -170,7 +170,7 @@ router.post('/my-info/postWechat', async (req, res) => {
 })
 
 //Delete wechat QR Code
-router.post('/my-info/deleteWechat', async (req, res) => {
+router.post('/bknd/my-info/deleteWechat', async (req, res) => {
   let email = req.session.email
   if (!email) {
     console.log("Strange request with no cookies");
@@ -194,7 +194,7 @@ router.post('/my-info/deleteWechat', async (req, res) => {
 })
 
 //input onBlur update
-router.post('/my-info/input-text', async (req, res) => {
+router.post('/bknd/my-info/input-text', async (req, res) => {
   let email = req.session.email
   if (!email) {
     console.log("Strange request with no cookies");
@@ -264,7 +264,7 @@ router.post('/my-info/input-text', async (req, res) => {
 })
 
 //checkbox onChange update
-router.post('/my-info/checkbox-change', async (req, res) => {
+router.post('/bknd/my-info/checkbox-change', async (req, res) => {
   let email = req.session.email
   if (!email) {
     console.log("Strange request with no cookies");
@@ -291,7 +291,7 @@ router.post('/my-info/checkbox-change', async (req, res) => {
 })
 
 //get all data from database
-router.get('/map/getAll', async (req, res) => {
+router.get('/bknd/map/getAll', async (req, res) => {
   let email = req.session.email
   if (!email) {
     console.log("Strange request with no cookies");
@@ -309,7 +309,7 @@ router.get('/map/getAll', async (req, res) => {
 })
 
 //get one data from database
-router.get('/map/getDetail', async (req, res) => {
+router.get('/bknd/map/getDetail', async (req, res) => {
   let email = req.session.email
   if (!email) {
     console.log("Strange request with no cookies");
@@ -327,19 +327,7 @@ router.get('/map/getDetail', async (req, res) => {
 })
 
 //logout of the account
-router.get('/map/logout', (req, res) => {
-  console.log('request to logout: sid:' + req.session.id)
-  req.session.destroy()
-  res.send({ logout: true })
-})
-
-router.get('/myinfo/logout', (req, res) => {
-  console.log('request to logout: sid:' + req.session.id)
-  req.session.destroy()
-  res.send({ logout: true })
-})
-
-router.get('/logout', (req, res) => {
+router.get('/bknd/logout', (req, res) => {
   console.log('request to logout: sid:' + req.session.id)
   req.session.destroy()
   res.send({ logout: true })

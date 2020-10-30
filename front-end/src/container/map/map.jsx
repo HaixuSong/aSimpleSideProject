@@ -14,7 +14,7 @@ import { Switch, Route } from "react-router-dom";
 
 class Map extends Component {
     componentDidMount = () => {
-        Axios.get('/map/getAll')
+        Axios.get('/bknd/map/getAll')
             .then(value => {
                 this.props.setAllData(value.data)
             })
