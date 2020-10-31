@@ -65,4 +65,5 @@ www.stehouse.info
 * Set Google Map key safer
 * Set AWS security groups safer
 * Set server cross-region safer
+* Brand new favicon
 
