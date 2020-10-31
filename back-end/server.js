@@ -29,7 +29,6 @@ app.use(session({
     touchAfter: 1 * 24 * 60 * 60 * 1000 //Store each 24 hours
   }),
   cookie: {
-    domain: 'stehouse.info', //set cookie to domain istead of url
     secure: false, //If true, this cookie may only dilivered while https
     httpOnly: true, //Won't allow this cookie be manipulated by js scripts
     maxAge: 90 * 24 * 60 * 60 * 1000 // Cookie expires after 180 days(about a semester)
