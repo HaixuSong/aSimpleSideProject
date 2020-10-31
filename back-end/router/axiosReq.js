@@ -228,7 +228,8 @@ router.post('/bknd/my-info/input-text', async (req, res) => {
                     //gmap responded but no good result
                     //may caused by a lot of reasons
                     //so just log the status code
-                    console.log('gmap not ok respond: ' + value.data.status)
+                    console.log('gmap not ok respond: ')
+                    console.log(value.data);
                     res.send({ updated: true })
                   }
                 })
@@ -240,7 +241,8 @@ router.post('/bknd/my-info/input-text', async (req, res) => {
               //gmap responded but no good result
               //may caused by a lot of reasons
               //so just log the status code
-              console.log('gmap not ok respond: ' + value.data.status)
+              console.log('gmap not ok respond: ')
+              console.log(value.data);
               res.send({ updated: true })
             }
           })

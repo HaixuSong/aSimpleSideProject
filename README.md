@@ -39,6 +39,8 @@ A simple web app project developed for Stevens international students to help th
   * connect-mongo: express-session store for mongodb, it''s used to store the session 
 * Deployment
   * AWS ES2 Ubuntu: FREE 12 months. wohooooooooo
+  * OpenSSH: Remote connect and operate Ubuntu
+  * Git: transfer secured public code and version control.
   * pm2: nodejs popular process manager, I used it to host the server.
   * Nginx: a popular reverse proxy server.
 
@@ -48,4 +50,19 @@ A simple web app project developed for Stevens international students to help th
 * static-version: tested online version with big improvement like v1.2
 * latest-version: latest small versions with bug fixing like v1.1.1
 
-## 
+## Website
+
+www.stehouse.info
+
+## Log
+
+#### 10/31/2020: v1.0.0
+
+* Web App basic functional interface online.
+
+#### 10/31/2020: v1.0.1
+
+* Set Google Map key safer
+* Set AWS security groups safer
+* Set server cross-region safer
+
