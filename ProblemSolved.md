@@ -2,7 +2,7 @@
 
 **Problem:** In-order to make this app with auto-login, due to the current situation(SPA), a ajax request needs to be sent to server to examine if this user is login(using cookies and session). But if async ajax request is using, the page will flash login-page since the map-page is rendered after the ajax respond came. 
 
-**Solution:** A very simple solution is using sync ajax(xhr) instead of async axios or xhr. API just like this.
+**Solution:** A very simple solution is using sync ajax(xhr) instead of async axios or xhr. API just like this. This may cause a little lag while first-rendering the page, but solved the flashing problem. Definitely better.
 
 ```javascript
 var request = new XMLHttpRequest();
@@ -23,3 +23,16 @@ if (request.status === 200) {
 
 ![001](.\docPic\001.png)![002](.\docPic\002.jpg)
 
+### 3.@react-google-map/api keep requesting problem
+
+**Problem: **while using @react-google-map component doing a request from google-map and then render the result (like what the official example code did), you may find that tens of requests are sent and the whole map is rendered tens of times. What happened is that when there's some component inside the map needs rendering, the whole google-map re-rendered, so the request is re-sent and result is re-get, new result is re-rendered , then the whole map is re-rendered, then the request is re-send....(endless loop)...... until google-map api stops you from doing this. It's quite dangerous since this kind of thing may cost you several buck in just few minutes.
+
+**Solution:** use another load-script tag to do the request separately. Or just use the official google-map api instead of this library.
+
+### 4.google-map api rendering directions using url api response.
+
+**Problem: ** I think this is a popular problems with project using gmap. If you want to reduce cost of direction requests, you may want to store the respond from gmap into your database. However, when you try to get the direction response from you database and try to render it on map, there's problem that DirectionRenderer doesn't recognize it. The problem is that url direction api returns a json object, but DirectionRenderer needs an instance (with methods in it). Like LatLng instance is not the same with LatLng json object. 
+
+**Solution: **As far as I know, DirectionRendered is the only one that can't render object result. So you can use other services. If you still wanna use it, you can either change the object into instance using the tools (like google.maps.LatLng()) in google.maps, or just request for a direction service once you need it (cost more). 
+
+### 5.
