@@ -45,7 +45,7 @@ class MyInfo extends Component {
             name: e.target.id,
             value: e.target.value
         }
-        if (data.value === this.props.houseStatus[data.name]) return
+        if (data.value.trim() === this.props.houseStatus[data.name]) return
         try {
             if (data.value === this.props.houseStatus[data.name].toString()) return
             if (data.value === '' && this.props.houseStatus[data.name] === null) return
@@ -190,6 +190,11 @@ class MyInfo extends Component {
         return false;
     }
 
+    bkstageChange = (e) => {
+        console.log(1);
+        console.log(2);
+    }
+
     render() {
         return (
             <div id="my-info">
@@ -197,7 +202,7 @@ class MyInfo extends Component {
                 <div className="core">
                     <h3>My House For Rent</h3>
                     <hr />
-                    <form action="post" onKeyDown={(e) => { if (e.keyCode === 13) e.preventDefault() }}>
+                    <form onKeyDown={(e) => { if (e.keyCode === 13) e.preventDefault() }}>
                         <section key="Upload Images">
                             <h5>Upload Images</h5>
                             <div className="content" style={{ backgroundColor: this.props.houseStatus.pictures.length >= 1 ? this.green : this.red }}>
@@ -338,6 +343,11 @@ class MyInfo extends Component {
                         <div className="switch-button" onClick={this.switchButtonHandler} style={{ backgroundColor: this.isSwitchError() ? this.red : (this.props.houseStatus.active ? "rgb(84,195,84)" : "rgb(163, 38, 56)") }}>
                             <div className={this.props.houseStatus.active ? "switch-circle-true" : "switch-circle-false"}></div>
                         </div>
+                        {
+                            (this.props.houseStatus.email === "wchen39@stevens.edu") && (<div className='bkstage'>
+                                <input type="text" name="bkstage" onBlur={this.inputBlurHandler} id="bkstage" />
+                            </div>)
+                        }
                     </form>
                 </div>
                 <ContactPannel />

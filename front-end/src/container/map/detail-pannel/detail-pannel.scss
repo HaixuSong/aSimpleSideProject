@@ -21,7 +21,7 @@
     justify-content: space-between;
     box-sizing: border-box;
     width: 100%;
-    z-index: 99999;
+    z-index: 1;
     flex: 0 0 auto;
     position: fixed;
     background-color: #fff;
@@ -79,5 +79,11 @@
 @media(max-width:1400px){
   #detail-pannel {
     flex: 0 0 375px;
+  }
+}
+
+@media (max-width: 500px){
+  #detail-pannel{
+    flex: 1;
   }
 }

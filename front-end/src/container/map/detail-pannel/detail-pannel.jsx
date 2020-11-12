@@ -174,7 +174,7 @@ class DetailPannel extends Component {
           <span>
             <Link to="/map">{'< Back'}</Link>
           </span>
-          <span>{'Copy Link'}</span>
+          {/* <span>{'Copy Link'}</span> */}
         </div>
         <div className='detail-header-place'></div>
         <Detail params={this.props.detail}/>

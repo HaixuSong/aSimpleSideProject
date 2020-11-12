@@ -15,7 +15,8 @@
     color: whitesmoke;
     line-height: 50px;
     position: absolute;
-    top: 175px;
+    top: 50%;
+    transform: translate(0, -50%);
     z-index: 90;
     user-select:none;
   }
@@ -43,6 +44,13 @@
     }
   }
 }
+@media (max-width: 900px){
+  .sliding-pics{
+    height: 200px;
+  }
+}
+
+
 // .sliding-pics::before{
 //   content: '<';
 //   display: block;

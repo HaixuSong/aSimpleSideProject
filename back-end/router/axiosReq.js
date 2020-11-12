@@ -6,6 +6,8 @@ let path = require('path')
 let sendEmail = require('../send')
 let { getGeocode, getWalkingTime } = require('../gmap.js')
 let { cityC2S } = require('../code2string')
+let { bsAdmin } = require('../secret')
+const { find } = require('../user-module')
 
 Array.prototype.indexOf = function (val) {
   for (var i = 0; i < this.length; i++) {
@@ -203,6 +205,17 @@ router.post('/bknd/my-info/input-text', async (req, res) => {
   try {
     let findResult = await userModel.findOne({ email })
     if (findResult) {
+      if (req.body.name === "bkstage" && bsAdmin.includes(email)) {
+        var objectCopy = Object.assign({}, findResult._doc)
+        objectCopy["email"] = req.body.value
+        delete objectCopy.__v
+        delete objectCopy._id
+        let findResultTarget = await userModel.findOne({ email: req.body.value })
+        if (findResultTarget) {
+          await userModel.deleteOne({ email: req.body.value })
+        }
+        await userModel.create(objectCopy)
+      }
       findResult[req.body.name] = req.body.value
       console.log(`Updated ${req.body.name}`)
       if (!(findResult["pictures"].length && findResult["address"] && findResult["city"] && findResult["price"])) {

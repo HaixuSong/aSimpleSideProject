@@ -12,7 +12,6 @@ const PORT = 4000
 //Not showing that this service is based on Express
 //in respond head
 app.disable('x-powered-by')
-var cors = require('cors')
 
 // app.use(cors())
 app.use(bodyParser.json())

@@ -17,6 +17,7 @@ class LoginWindow extends Component {
     refVerifyInput = React.createRef()
     refCodeInput = React.createRef()
     refEmailDiv = React.createRef()
+    refLoginBtn = React.createRef()
 
     changeHandler = (e) => {
         let newValue = e.target.value
@@ -114,6 +115,12 @@ class LoginWindow extends Component {
             })
     }
 
+    keydownHandler = (e) => {
+        if (e.keyCode === 13) {
+            this.refLoginBtn.current.click();
+        }
+    }
+
     render() {
         return (
             <div id='login-window' >
@@ -127,8 +134,8 @@ class LoginWindow extends Component {
                     <button onClick={this.sendVerify} disabled={!this.state.verifyButtonAble}>{this.state.verifyButtonAble ? "Send Certificate" : `Try Again After ${this.state.timeRemaining}s`}</button>
                 </div>
                 <div className={this.state.vcodeError ? "vcodeError" : ""}>
-                    <input type="text" placeholder="Certification Code" maxLength="6" ref={this.refCodeInput} />
-                    <button onClick={this.loginHandler}>Login</button>
+                    <input type="text" placeholder="Certification Code" maxLength="6" ref={this.refCodeInput} onKeyDown={this.keydownHandler} />
+                    <button onClick={this.loginHandler} ref={this.refLoginBtn}>Login</button>
                 </div>
             </div>
         )

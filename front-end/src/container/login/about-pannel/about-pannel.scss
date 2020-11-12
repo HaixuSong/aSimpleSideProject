@@ -95,3 +95,17 @@
     }
 
 }
+@media (max-width: 600px){
+    #house{
+        display: none;
+    }
+    #senior, #fresh{
+        transform: translate(0, 40px);
+    }
+    #senior::after{
+        transform: translate(0, -40px) rotate(-19deg) !important;
+    }
+    #fresh::after{
+        transform: translate(0, -40px) rotate(11deg) !important;
+    }
+}

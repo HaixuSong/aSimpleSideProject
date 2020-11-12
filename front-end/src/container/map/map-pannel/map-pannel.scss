@@ -2,3 +2,8 @@
   height: 100%;
   width: 100%;
 }
+@media (max-width: 500px){
+  #map-pannel{
+    display: none;
+  }
+}
